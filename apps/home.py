@@ -39,9 +39,10 @@ layout = html.Div([
             dbc.Col(dbc.Card(children=[html.H3(children='You can find the code for this project in',
                                                className="text-center"),
                                        dbc.Button("GitHub",
-                                                  href="https://github.com",
+                                                  href="https://github.com/ddonov1905/visualisation_app/",
                                                   color="primary",
-                                                  className="mt-3"),
+                                                  className="mt-3",
+                                                  target="_blank"),
                                        ],
                              body=True, color="dark", outline=True)
                     , width=6, className="mb-4")
