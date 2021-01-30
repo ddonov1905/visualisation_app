@@ -7,6 +7,7 @@ dash-html-components==1.0.3
 dash-renderer==1.4.1
 dash-table==4.7.0
 DateTime==4.3
+django_heroku==0.3.1
 Flask==1.1.2
 Flask-Compress==1.5.0
 future==0.18.2
@@ -27,6 +28,7 @@ scipy==1.4.1
 six==1.14.0
 seaborn==0.10.0
 statsmodels==0.11.1
+whitenoise==5.2.0
 Werkzeug==1.0.1
 xlrd==1.2.0
 zope.interface==5.1.0
