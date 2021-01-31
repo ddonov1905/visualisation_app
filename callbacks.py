@@ -631,7 +631,6 @@ def UpdatePCP(ageselect, wardselect):
                                           'Mean corpuscular hemoglobin (MCH)', 'Leukocytes',
                                           'Red blood cell distribution width (RDW)', 'Creatinine'],
                               color='Covid-Exam-Result (int)',
-                              title='blablabla',
                               color_continuous_scale=['#2BA7CC','#e36f10'],
                               range_color=(0,1))
     
