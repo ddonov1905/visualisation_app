@@ -17,7 +17,7 @@ import pathlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-
+   
 """import data"""
 
 covid = pd.read_excel("dataset.xlsx")
