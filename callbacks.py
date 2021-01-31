@@ -340,7 +340,7 @@ def render_content(tab):
                                      value='Hemoglobin',
                                      clearable=False
                                  )], style={'width': '17%','text-align': 'center','position':'relative', 'left':150,'display': 'inline-block'}),
-                     ],style={'padding': 30}),
+                     ],style={'padding': 20}),
     
                 #Create graphic to show scatter plot
 #                 html.Div([html.H2('Scatter plot for all continuous test variables', style={'text-align': 'left','position':'relative', 'left':150}),
@@ -352,7 +352,7 @@ def render_content(tab):
 #                 html.Div([html.H2('title of barchart',style={'text-align': 'left','position':'relative', 'left':150}),
 #                           html.H2('Distribution of positive cases over hospitalization', style={'text-align': 'right', 'position':'relative', 'left':50})]),
                 
-                html.Div([dcc.Graph(id='fig_ageq', style={'width': '45%', 'float': 'left', 'display': 'inline'}),
+                html.Div([dcc.Graph(figure=fig_ageq, id='fig_ageq', style={'width': '45%', 'float': 'left', 'display': 'inline'}),
                           dcc.Graph(figure=fig_2, id='fig_wards',style={'float': 'right', 'display': 'inline'})]),
 #                 html.Div([html.H2('blablablablbalblalbal',style={'text-align': 'left','position':'relative', 'left':150})]),
                 html.Div([dcc.Graph(id='parallel-coord', style={'width': '100%','float': 'center','display': 'inline-block'})])
@@ -374,8 +374,9 @@ def render_content(tab):
                                    html.Div([html.H4('Select patient characteristics:'),
                                              dcc.Dropdown(id='corr-matrix',
                                                           options=[{'label': i, 'value': j} for i,j in zip(ht_cols, range(0, 74))],
-                                                          value=list(range(0,24)),multi=True)], style={})
-                                  ]), 
+                                                          value=list(range(0,24)),multi=True, 
+                                                          style={'backgroundColor': '#26232C'})], style={'backgroundColor': '#26232C'})
+                                   ]), 
                          dcc.Graph(id='correlation-heatmap-all-vars')])
 ])
 
@@ -436,7 +437,7 @@ def update_graph(xaxis_col_name, yaxis_col_name, ageselect, wardselect):
                       legend_font_color='white',
                       legend_title_font_color='white',
                       title_font_color="white", 
-                      margin={'l': 40, 'b': 40, 't': 10, 'r': 0}, 
+                      margin={'l': 40, 'b': 40, 't': 40, 'r': 0}, 
                       hovermode='closest')
 
 
@@ -501,78 +502,6 @@ def UpdateBoxplot(var1, var2, ageselect, wardselect):
     )
     
     return fig
-
-
-# ---------- Callbacks and Update function for Age Quantile bar chart ---------
-@app.callback(
-    Output('fig_ageq', 'figure'),
-    [Input('continuous-graphic', 'selectedData')]
-)
-
-def update_age(clickData):
-    
-    if clickData == None or clickData['points'] == []:
-        fig = go.Figure(fig_ageq)
-        return fig
-    
-    else:
-        
-        fig = go.Figure(fig_ageq,
-                        opacity=0.8,
-                        title='Distribution of positive cases over hospitalization')
-        df=covid
-
-        click_id = clickData['points'][0]["hovertext"]
-        age = df[df['Patient ID']==click_id].iloc[0]['Patient age quantile']
-        test_result = df[df['Patient ID']==click_id].iloc[0]["SARS-Cov-2 exam result"]
-        perc = df_ageq[(df_ageq['test']==test_result) & (df_ageq['quantile']==str(age))]['percents']
-        
-#         fig.update_traces(opacity=0.5,selector=dict(type='bar'))
-    
-        fig.add_bar(name='Patient ID: '+str(click_id), y=[perc], x=[age], marker=dict(color="LightSeaGreen"),
-                   alignmentgroup='True', texttemplate="%{y:.f}", textposition="inside", textfont=dict(color="#ffffff"),
-                   hovertemplate="Patient: "+str(click_id)+"<br>Age quantile: "+"%{x}<br>Percents: %{y} <extra></extra>")
-        fig.update.layout(
-            title_font_colot='white',
-            legend_font_color='white',
-            legend_title_font_color='white'
-        )
-        return fig
-
-# ---------- Callbacks and Update function for Hospital wards bar chart ---------
-# @app.callback(
-#     Output('fig_wards', 'figure'),
-#     [Input('continuous-graphic', 'selectedData')]
-# )
-
-# def update_wards(clickData):
-    
-#     if clickData == None:
-#         return fig_2
-    
-#     else:
-#         fig = go.Figure(fig_2)
-#         df=covid
-
-#         click_id = clickData['points'][0]["hovertext"]
-#         age = df[df['Patient ID']==click_id].iloc[0]['Patient age quantile']
-#         perc = df_ageq['percents'][age]
-    
-#         fig.add_bar(name='Patient ID: '+str(click_id), y=[perc], x=[age], marker=dict(color="LightSeaGreen"),
-#                    alignmentgroup='True', texttemplate="%{y:.f}", textposition="inside", textfont=dict(color="#ffffff"),
-#                    hovertemplate="Patient: "+str(click_id)+"<br>Age quantile: "+"%{x}<br>Percents: %{y} <extra></extra>")
-        
-#         fig.update_layout()
-        
-#         return fig
-     
-    
-# @app.callback(
-#     Output('selected-data', 'children'),
-#     Input('fig_wards', 'selectedData'))
-
-# def display_selected_data(selectedData):
-#     return json.dumps(selectedData, indent=2)
 
 # ---------- Callbacks and Update function for heatmap ----------
 @app.callback(
@@ -702,6 +631,7 @@ def UpdatePCP(ageselect, wardselect):
                                           'Mean corpuscular hemoglobin (MCH)', 'Leukocytes',
                                           'Red blood cell distribution width (RDW)', 'Creatinine'],
                               color='Covid-Exam-Result (int)',
+                              title='blablabla',
                               color_continuous_scale=['#2BA7CC','#e36f10'],
                               range_color=(0,1))
     
