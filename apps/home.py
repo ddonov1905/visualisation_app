@@ -10,18 +10,18 @@ import dash_bootstrap_components as dbc
 layout = html.Div([
     dbc.Container([
         dbc.Row([
-            dbc.Col(html.H1("Welcome to the COVID-19 Visualization tool of group 8", className="text-center")
+            dbc.Col(html.H1("Welcome to the COVID-19 Visualization tool of group 27", className="text-center")
                     , className="mb-5 mt-5")
         ]),
         dbc.Row([
-            dbc.Col(html.H5(children='bla bla bla bla'
+            dbc.Col(html.H5(children='A dataset about the Diagnosis of COVID-19 and its clinical spectrum has been analysied in this web tool. The link for the dataset you can find below.'
                                      )
                     , className="mb-4")
             ]),
 
         dbc.Row([
-            dbc.Col(html.H5(children='It consists of two main pages: Home, this is an introduction page to the Group 8 visualization tool'
-                                     'Exploration, which gives the oppurtunity to exploral several bla bla bla bla')
+            dbc.Col(html.H5(children='The tool consists of two main pages: Home, this is an introduction page to the Group 27 visualization tool'
+                                     'Exploration, which gives the oppurtunity to explore the dataset and find interesting patterns')
                     , className="mb-5")
         ]),
 
@@ -31,6 +31,7 @@ layout = html.Div([
                                        dbc.Button("Covid-19",
                                                   href="https://www.kaggle.com/einsteindata4u/covid19",
                                                   color="primary",
+                                                  target="_blank",
                                                   className="mt-3")
                                        ],
                              body=True, color="dark", outline=True)
@@ -41,8 +42,8 @@ layout = html.Div([
                                        dbc.Button("GitHub",
                                                   href="https://github.com/ddonov1905/visualisation_app/",
                                                   color="primary",
-                                                  className="mt-3",
-                                                  target="_blank"),
+                                                  target="_blank",
+                                                  className="mt-3"),
                                        ],
                              body=True, color="dark", outline=True)
                     , width=6, className="mb-4")
