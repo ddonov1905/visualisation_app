@@ -354,8 +354,8 @@ def render_content(tab):
                 
                 html.Div([dcc.Graph(id='fig_ageq', style={'width': '45%', 'float': 'left', 'display': 'inline'}),
                           dcc.Graph(figure=fig_2, id='fig_wards',style={'float': 'right', 'display': 'inline'})]),
-                html.Div([html.H2('blablablablbalblalbal',style={'text-align': 'left','position':'relative', 'left':150})]),
-                html.Div([dcc.Graph(id='parallel-coord', style={'float': 'center','display': 'inline'})])
+#                 html.Div([html.H2('blablablablbalblalbal',style={'text-align': 'left','position':'relative', 'left':150})]),
+                html.Div([dcc.Graph(id='parallel-coord', style={'width': '100%','float': 'center','display': 'inline-block'})])
                 
 
 ])
@@ -376,7 +376,7 @@ def render_content(tab):
                                                           options=[{'label': i, 'value': j} for i,j in zip(ht_cols, range(0, 74))],
                                                           value=list(range(0,24)),multi=True)], style={})
                                   ]), 
-                         dcc.Graph(id='correlation-heatmap-all-vars')],style={})
+                         dcc.Graph(id='correlation-heatmap-all-vars')])
 ])
 
     
@@ -730,4 +730,3 @@ def UpdatePCP(ageselect, wardselect):
     
     return fig
     
-
