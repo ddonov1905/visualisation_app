@@ -30,5 +30,5 @@ layout = html.Div([
                        'border': '0px'})]),
         html.Div(id='tabs-example-content')]),
     
-])
+]) 
 
