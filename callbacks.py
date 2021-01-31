@@ -17,7 +17,7 @@ import pathlib
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-   
+
 """import data"""
 
 covid = pd.read_excel("dataset.xlsx")
@@ -109,7 +109,7 @@ df_percs = pd.DataFrame({'wards': ['Regular Ward', 'Semi-intensive care', 'Inten
                                    'Regular Ward', 'Semi-intensive care', 'Intensive care'],
                          'percs': [pos_reg, pos_semi, pos_int,
                                    neg_reg, neg_semi, neg_int],
-                         'test':  ['positive', 'positive', 'positive',
+                         'SARS-Cov-2 exam result':  ['positive', 'positive', 'positive',
                                    'negative', 'negative', 'negative'],
                          'count': count})
     
@@ -119,8 +119,8 @@ fig_2 = px.bar(df_percs,
                opacity=0.8,
                y='percs',
                text='percs',
-               color='test',
-               custom_data=['test', 'count'],
+               color='SARS-Cov-2 exam result',
+               custom_data=['SARS-Cov-2 exam result', 'count'],
                category_orders={"SARS-Cov-2 exam result": ["Positive", "Negative"]},
                color_discrete_sequence=['#e36f10', '#2ba7cc'])
 fig_2.update_layout(
@@ -229,7 +229,7 @@ df_ageq = pd.DataFrame({'quantile': ['0', '1','2','3','4','5','6','7','8','9','1
                                       paq_11, paq_12, paq_13, paq_14, paq_15, paq_16, paq_17, paq_18, paq_19, paq_20,
                                       naq_0, naq_1, naq_2, naq_3, naq_4, naq_5, naq_6, naq_7, naq_8, naq_9, naq_10,
                                       naq_11, naq_12, naq_13, naq_14, naq_15, naq_16, naq_17, naq_18, naq_19, naq_20],
-                         'test':  ['positive']*21 + ['negative']*21,
+                         'SARS-Cov-2 exam result':  ['positive']*21 + ['negative']*21,
                          'count': count})
 
 x = df_ageq['quantile']
@@ -239,11 +239,11 @@ fig_ageq = px.bar(df_ageq,
                   x='quantile', 
                   y='percents', 
                   text='percents', 
-                  title= 'Age quantile distibution of positive COVID-19 results:', 
-                  color='test',
+                  title= 'Age quantile distibution of positive COVID-19 results', 
+                  color='SARS-Cov-2 exam result',
                   color_discrete_sequence=['#e36f10', '#2ba7cc'],
                   category_orders={"SARS-Cov-2 exam result": ["Positive", "Negative"]},
-                  custom_data=['test', 'count'],
+                  custom_data=['SARS-Cov-2 exam result', 'count'],
                   opacity=0.8)
 fig_ageq.update_layout(
     plot_bgcolor='#26232C',
@@ -340,7 +340,7 @@ def render_content(tab):
                                      value='Hemoglobin',
                                      clearable=False
                                  )], style={'width': '17%','text-align': 'center','position':'relative', 'left':150,'display': 'inline-block'}),
-                     ],style={'padding': 60}),
+                     ],style={'padding': 30}),
     
                 #Create graphic to show scatter plot
 #                 html.Div([html.H2('Scatter plot for all continuous test variables', style={'text-align': 'left','position':'relative', 'left':150}),
@@ -605,6 +605,11 @@ def update_heatmap(covid_type):
                        xaxis=dict(color='#9D9D9D'),
                        yaxis={'title': f'{covid_type}', 'color':'#9D9D9D'})
     
+    fig.layout.coloraxis.colorbar.title='Mean test recording'
+    fig.layout.coloraxis.colorbar.title.font.color='#9D9D9D'
+    fig.layout.coloraxis.colorbar.tickfont.color='#9D9D9D'
+    fig.layout.coloraxis.colorbar.x=1.1
+    
     return fig
 
 # ---------- Callbacks and Update function for correlation heatmap ---------
@@ -622,8 +627,8 @@ def update_corr_matrix(selection, selection_2):
     htmap = go.Heatmap(z = corr, x = ht_cols[selection],
                        y = ht_cols[selection_2],
                        hovertemplate='Y: %{y}<br>X: %{x}<br>Correlation: %{z}<extra></extra>',
-                       colorbar = dict(title=' Correlation'), colorscale = 'Viridis'
-                      )
+                       colorbar = dict(title=' Correlation', title_font_color='#9D9D9D',tickfont_color='#9D9D9D'),
+                       colorscale = 'Viridis')
     
     layout = go.Layout(plot_bgcolor='#26232C',
                        paper_bgcolor='#26232C',
@@ -718,6 +723,10 @@ def UpdatePCP(ageselect, wardselect):
     fig.update_traces(line_colorbar_tickcolor='#9D9D9D',selector=dict(type='parcoords'))
     fig.update_traces(line_colorbar_title_font_color='#9D9D9D',selector=dict(type='parcoords'))
     fig.update_traces(rangefont_color='#9D9D9D',selector=dict(type='parcoords'))
+    
+    fig.layout.coloraxis.colorbar.title='SARS-Cov-2 exam result'
+    fig.layout.coloraxis.colorbar.title.font.color='#9D9D9D'
+    fig.layout.coloraxis.colorbar.showticklabels=False
     
     return fig
     
