@@ -239,7 +239,7 @@ fig_ageq = px.bar(df_ageq,
                   x='quantile', 
                   y='percents', 
                   text='percents', 
-                  title= 'Age quantile distibution of positive COVID-19 results', 
+                  title= 'Age quantile distribution', 
                   color='SARS-Cov-2 exam result',
                   color_discrete_sequence=['#e36f10', '#2ba7cc'],
                   category_orders={"SARS-Cov-2 exam result": ["Positive", "Negative"]},
@@ -360,14 +360,14 @@ def render_content(tab):
 
 ])
     elif tab == 'tab-2':
-        return html.Div([html.H2('Heatmap of Historical Covid strains and mean '),
-                         html.H2('Lymphocyte and mean Red Blood Cell values'),
-                         html.Div([html.H4('Select COVID test:'),
+        return html.Div([html.H2('HEATMAP OF HISTORICAL COVID STRAINS AND select', style={'marginTop':30}),
+                         html.H2(' mean test records'),
+                         html.Div([html.H4('Select COVID test:', style={'marginTop':30}),
                         dcc.Dropdown(
                             id='covid-type',
                             options=[{'label': i, 'value': i} for i in heatmap_cols],
                             value='Test result COVID'
-                        )], style={'width': '48%', 'display': 'inline-block', 'float':'center'}),
+                        )], style={'width': '48%', 'display': 'inline-block', 'float':'right'}),
                 html.Div([dcc.Graph(id='covid-strain-heatmap', style={'width': '48%', 'display': 'inline-block', 'float': 'center'})],style={'padding': 30}),
                 html.Div([html.Div([html.H2('Correlation heatmap for select patient characteristics'),
                                    #Create multi-select window for correlation heat map of all variables
@@ -686,4 +686,3 @@ def UpdatePCP(ageselect, wardselect):
     
     return fig
     
-#blab
