@@ -395,26 +395,34 @@ def update_graph(xaxis_col_name, yaxis_col_name, ageselect, wardselect):
     
     df = covid.copy()
     
-    #age quantile loop
-    if ageselect == None:
+    #update loop
+    if ageselect == None and wardselect == None:
         pass
-    elif ageselect["points"] == []:
+    elif ageselect != None and ageselect["points"] == []:
         pass
-    else:
+    elif wardselect != None and wardselect["points"] == []:
+        pass
+   
+    elif ageselect != None and wardselect == None:
         quantile = [i["x"] for i in ageselect["points"]]
-        df = df[df['Patient age quantile'].isin(quantile)]
-    
-    #ward loop
-    if wardselect == None:
-        pass
-    elif wardselect["points"] == []:
-        pass
-    
-    else:
+        cov_result = [i["customdata"][0] for i in ageselect["points"]]
+        df = df[(df['Patient age quantile'].isin(quantile)) &
+                (df['SARS-Cov-2 exam result'].isin(cov_result))]
+        
+    elif wardselect != None and ageselect == None:
         ward = [i["x"] for i in wardselect["points"]]
         cov_result = [i["customdata"][0] for i in wardselect["points"]]
-        df = df[(df['Ward'].isin(ward)) & (df["SARS-Cov-2 exam result"].isin(cov_result))]
-
+        df = df[(df['Ward'].isin(ward)) &
+                (df['SARS-Cov-2 exam result'].isin(cov_result))]
+    else:
+        quantile = [i["x"] for i in ageselect["points"]]
+        ward = [i["x"] for i in wardselect["points"]]
+        cov_result = [i["customdata"][0] for i in wardselect["points"]]
+        cov_result += [i["customdata"][0] for i in ageselect["points"]]
+        df = df[(df['Patient age quantile'].isin(quantile)) &
+                (df['Ward'].isin(ward)) &
+                (df['SARS-Cov-2 exam result'].isin(cov_result))]
+        
     fig = px.scatter(df,
                      x=xaxis_col_name,
                      y=yaxis_col_name,
@@ -464,24 +472,33 @@ def UpdateBoxplot(var1, var2, ageselect, wardselect):
     """
     df = covid.copy()
     
-    #age quantile loop
-    if ageselect == None:
+    #update loop
+    if ageselect == None and wardselect == None:
         pass
-    elif ageselect["points"] == []:
+    elif ageselect != None and ageselect["points"] == []:
         pass
+    elif wardselect != None and wardselect["points"] == []:
+        pass
+   
+    elif ageselect != None and wardselect == None:
+        quantile = [i["x"] for i in ageselect["points"]]
+        cov_result = [i["customdata"][0] for i in ageselect["points"]]
+        df = df[(df['Patient age quantile'].isin(quantile)) &
+                (df['SARS-Cov-2 exam result'].isin(cov_result))]
+        
+    elif wardselect != None and ageselect == None:
+        ward = [i["x"] for i in wardselect["points"]]
+        cov_result = [i["customdata"][0] for i in wardselect["points"]]
+        df = df[(df['Ward'].isin(ward)) &
+                (df['SARS-Cov-2 exam result'].isin(cov_result))]
     else:
         quantile = [i["x"] for i in ageselect["points"]]
-        df = df[df['Patient age quantile'].isin(quantile)]
-    
-    #ward loop
-    if wardselect == None:
-        pass
-    elif wardselect["points"] == []:
-        pass
-    else:
         ward = [i["x"] for i in wardselect["points"]]
-        df = df[df['Ward'].isin(ward)]
-
+        cov_result = [i["customdata"][0] for i in wardselect["points"]]
+        cov_result += [i["customdata"][0] for i in ageselect["points"]]
+        df = df[(df['Patient age quantile'].isin(quantile)) &
+                (df['Ward'].isin(ward)) &
+                (df['SARS-Cov-2 exam result'].isin(cov_result))]
     fig = px.box(df,
                  y=[var1, var2],
                  title='Summary statistics',
@@ -608,24 +625,33 @@ def UpdatePCP(ageselect, wardselect):
         
     df = covid.copy()
     
-    #age quantile loop
-    if ageselect == None:
+   #update loop
+    if ageselect == None and wardselect == None:
         pass
-    elif ageselect["points"] == []:
+    elif ageselect != None and ageselect["points"] == []:
         pass
-    else:
+    elif wardselect != None and wardselect["points"] == []:
+        pass
+   
+    elif ageselect != None and wardselect == None:
         quantile = [i["x"] for i in ageselect["points"]]
-        df = df[df['Patient age quantile'].isin(quantile)]
-    
-    #ward loop
-    if wardselect == None:
-        pass
-    elif wardselect["points"] == []:
-        pass
-    else:
+        cov_result = [i["customdata"][0] for i in ageselect["points"]]
+        df = df[(df['Patient age quantile'].isin(quantile)) &
+                (df['SARS-Cov-2 exam result'].isin(cov_result))]
+        
+    elif wardselect != None and ageselect == None:
         ward = [i["x"] for i in wardselect["points"]]
         cov_result = [i["customdata"][0] for i in wardselect["points"]]
-        df = df[(df['Ward'].isin(ward)) & (df["SARS-Cov-2 exam result"].isin(cov_result))]
+        df = df[(df['Ward'].isin(ward)) &
+                (df['SARS-Cov-2 exam result'].isin(cov_result))]
+    else:
+        quantile = [i["x"] for i in ageselect["points"]]
+        ward = [i["x"] for i in wardselect["points"]]
+        cov_result = [i["customdata"][0] for i in wardselect["points"]]
+        cov_result += [i["customdata"][0] for i in ageselect["points"]]
+        df = df[(df['Patient age quantile'].isin(quantile)) &
+                (df['Ward'].isin(ward)) &
+                (df['SARS-Cov-2 exam result'].isin(cov_result))]
     
     fig = px.parallel_coordinates(df,
                               dimensions=['Hematocrit', 'Eosinophils', 'Platelets',
