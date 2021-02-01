@@ -14,7 +14,7 @@ layout = html.Div([
                     , className="mb-5 mt-5")
         ]),
         dbc.Row([
-            dbc.Col(html.H5(children='A dataset about the Diagnosis of COVID-19 and its clinical spectrum has been analysied in this web tool. The link for the dataset you can find below.'
+            dbc.Col(html.H5(children='A dataset about the Diagnosis of COVID-19 and its clinical spectrum has been analysed in this web tool. The link for the dataset you can find below.'
                                      )
                     , className="mb-4")
             ]),
