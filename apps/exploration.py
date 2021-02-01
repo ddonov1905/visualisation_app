@@ -13,7 +13,7 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets, suppress_ca
 layout = html.Div([
     html.Div([
         dcc.Tabs(id='tabs-example', value='tab-1', children=[
-        dcc.Tab(label='Scatter Plot',
+        dcc.Tab(label='Analysis tools',
                 value='tab-1',
                 selected_className='custom-tab-1',
                 style={'background-color': '#006a68',
