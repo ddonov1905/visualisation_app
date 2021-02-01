@@ -528,7 +528,8 @@ def update_heatmap(covid_type):
             ]
     
     fig = px.imshow(means, x=heatmap_vars, y=['Positive', 'Negative'],
-                   labels=dict(x="Patient Recording", y=f"{covid_type}", color="Mean cell recording"))
+                   labels=dict(x="Patient Recording", y=f"{covid_type}", color="Mean cell recording"),
+                   color_continuous_scale='Viridis')
 
     fig.update_layout(plot_bgcolor='#26232C',paper_bgcolor='#26232C', modebar_color = '#136d6d' ,title='',
                        xaxis=dict(color='#9D9D9D'),
