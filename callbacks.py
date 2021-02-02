@@ -544,18 +544,46 @@ def update_heatmap(covid_type):
              df_rw[(df_rw[covid_type] == 'negative')]['Creatinine'].mean()]
             ]
     
-    fig = px.imshow(means, x=heatmap_vars, y=['Positive', 'Negative'],
-                   labels=dict(x="Patient Recording", y=f"{covid_type}", color="Mean cell recording"),
-                   color_continuous_scale='Viridis')
-
-    fig.update_layout(plot_bgcolor='#26232C',paper_bgcolor='#26232C', modebar_color = '#136d6d' ,title='',
-                       xaxis=dict(color='#9D9D9D'),
-                       yaxis={'title': f'{covid_type}', 'color':'#9D9D9D'})
+    htmap1 = go.Heatmap(z = means, x =heatmap_vars, y=['Positive', 'Negative'],
+                       #hovertemplate='Y: %{y}<br>X: %{x}<br>Correlation: %{z}<extra></extra>',
+                       colorbar = dict(title=' Correlation', title_font_color='#9D9D9D',tickfont_color='#9D9D9D'),
+                       colorscale = 'Viridis')
     
-    fig.layout.coloraxis.colorbar.title='Mean test recording'
-    fig.layout.coloraxis.colorbar.title.font.color='#9D9D9D'
-    fig.layout.coloraxis.colorbar.tickfont.color='#9D9D9D'
-    fig.layout.coloraxis.colorbar.x=1.1
+    layout = go.Layout(plot_bgcolor='#26232C',
+                       paper_bgcolor='#26232C',
+                       modebar_color = '#136d6d', 
+                       height=300,
+                       yaxis=dict(color='#9D9D9D'),
+                       xaxis=dict(color='#9D9D9D'))
+    
+    fig = go.Figure(data=[htmap1], layout=layout)
+
+    fig.update_layout(
+    updatemenus=[
+        dict(
+            buttons=list([
+                dict(
+                    args=["colorscale", "Viridis"],
+                    label="Viridis",
+                    method="restyle"
+                ),
+                dict(
+                    args=["colorscale", "Cividis"],
+                    label="Cividis",
+                    method="restyle"
+                )
+            ]),
+            type = "buttons",
+            direction="right",
+            pad={"r": 10, "t": 10},
+            showactive=True,
+            x=0.1,
+            xanchor="left",
+            y=1.5,
+            yanchor="top"
+        ),
+    ])
+    
     
     return fig
 
