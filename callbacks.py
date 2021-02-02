@@ -559,6 +559,7 @@ def update_heatmap(covid_type):
     fig = go.Figure(data=[htmap1], layout=layout)
 
     fig.update_layout(
+    margin={'l': 0, 'b':160, 't': 0, 'r': 0},
     updatemenus=[
         dict(
             buttons=list([
@@ -575,7 +576,7 @@ def update_heatmap(covid_type):
             ]),
             type = "buttons",
             direction="right",
-            pad={"r": 10, "t": 10},
+            pad={"r": 10, "t": 0},
             showactive=True,
             x=0.1,
             xanchor="left",
