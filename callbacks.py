@@ -369,7 +369,7 @@ def render_content(tab):
                             value='Test result COVID'
                         )], style={'width': '48%', 'display': 'inline-block', 'float':'right'}),
                 html.Div([dcc.Graph(id='covid-strain-heatmap', style={'width': '48%', 'display': 'inline-block', 'float': 'center'})],style={'padding': 30}),
-                html.Div([html.Div([html.H2('Correlation heatmap for select patient characteristics'),
+                html.Div([html.Div([html.H2('Correlation heatmap for select patient characteristics', style={'marginTop':30}),
                                    #Create multi-select window for correlation heat map of all variables
                                    html.Div([html.H4('Select patient characteristics:'),
                                              dcc.Dropdown(id='corr-matrix',
